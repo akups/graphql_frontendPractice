@@ -1,30 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { useGetOrdersQuery} from './generated/graphql'
-
-
+import AddOrderForm from "./AddOrderForm";
+import "./App.css";
+import { useGetOrdersQuery, useCreateOrderMutation } from "./generated/graphql";
 
 function App() {
+  const [createOrder, { data: dataCreateOrder }] = useCreateOrderMutation();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const price = parseInt(e.target.price.value);
+
+    createOrder({ variables: { input: { name, price } } });
+  };
 
   const { data, error, loading } = useGetOrdersQuery();
-console.log(data)
+  console.log(data);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {data?.orderList?.map((order) => {
+        return (
+          <div>
+            <p>{order?.name}</p>
+            <p>{order?.id}</p>
+          </div>
+        );
+      })}
+      <div>
+        <form onSubmit={handleSubmit}>
+          <input name="name" />
+          <input type="number" name="price" />
+          <button type="submit">submit</button>
+        </form>
+      </div>
+      <AddOrderForm />
     </div>
   );
 }
