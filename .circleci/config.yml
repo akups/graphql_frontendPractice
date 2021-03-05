@@ -1,6 +1,13 @@
 version: 2.1
 orbs:
   react: thefrontside/react@0.2.0
+
+jobs:
+  our_build:
+    steps:
+      - run: npm run build
+      - run: echo "build done"
+
 workflows:
   push:
     jobs:
@@ -11,9 +18,6 @@ workflows:
       - react/test:
           requires:
             - react/install
-      - react-building:
+      - our_build:
           requires:
             - react/install
-          steps:
-            - run: npm run build
-            - run: echo "build done"
