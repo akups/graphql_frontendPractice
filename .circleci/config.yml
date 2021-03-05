@@ -21,6 +21,6 @@ workflows:
       - react/test:
           requires:
             - react/install
-      - our_build:
+      - react/build:
           requires:
             - react/install
