@@ -11,7 +11,7 @@ workflows:
       - react/test:
           requires:
             - react/install
-      - react/building:
+      - react-building:
           requires:
             - react/install
           steps:
