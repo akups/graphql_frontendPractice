@@ -1,0 +1,6 @@
+query getOrders {
+  orderList {
+    id
+    name
+  }
+}
