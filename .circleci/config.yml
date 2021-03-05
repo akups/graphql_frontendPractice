@@ -11,3 +11,9 @@ workflows:
       - react/test:
           requires:
             - react/install
+      - react/building:
+          requires:
+            - react/install
+          steps:
+            - run: npm run build
+            - run: echo "build done"
