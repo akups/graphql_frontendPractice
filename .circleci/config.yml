@@ -4,7 +4,7 @@ orbs:
 
 jobs:
   our_build:
-    working_directory: ~/repo
+    working_directory: ~/grapql_frontendPractice
     machine:
       image: ubuntu-1604:202007-01
     steps:
