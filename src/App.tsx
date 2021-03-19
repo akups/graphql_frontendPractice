@@ -16,6 +16,14 @@ function App() {
   console.log(data);
   return (
     <div className="App">
+      <AddOrderForm />
+      <div>
+        <form onSubmit={handleSubmit}>
+          <input name="name" />
+          <input type="number" name="price" />
+          <button type="submit">submit</button>
+        </form>
+      </div>
       {data?.orderList?.map((order) => {
         return (
           <div>
@@ -24,14 +32,6 @@ function App() {
           </div>
         );
       })}
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input name="name" />
-          <input type="number" name="price" />
-          <button type="submit">submit</button>
-        </form>
-      </div>
-      <AddOrderForm />
     </div>
   );
 }
