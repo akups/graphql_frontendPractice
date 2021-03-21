@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.9",
+    "@sentry/react": "^6.2.2",
+    "@sentry/tracing": "^6.2.2",
     "final-form": "^4.20.1",
     "graphql": "^15.5.0",
     "react": "^17.0.1",
