@@ -13,8 +13,7 @@ function App() {
   };
 
   const { data, error, loading } = useGetOrdersQuery();
-  console.log(data);
-  throw new Error("random error");
+
   return (
     <div className="App">
       <AddOrderForm />
