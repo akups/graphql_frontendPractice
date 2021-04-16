@@ -23,26 +23,51 @@ export type Query = {
   orderList?: Maybe<Array<Maybe<Order>>>;
 };
 
+export enum OrderStatus {
+  Placed = 'PLACED',
+  Paid = 'PAID',
+  OutForDelivery = 'OUT_FOR_DELIVERY',
+  Delivered = 'DELIVERED'
+}
+
 export type Order = {
   __typename?: 'Order';
   id?: Maybe<Scalars['ID']>;
-  price?: Maybe<Scalars['Int']>;
+  netPrice?: Maybe<Scalars['Int']>;
+  totalPrice?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['String']>;
+  status?: Maybe<OrderStatus>;
+  isCancelled?: Maybe<Scalars['Boolean']>;
 };
 
 export type OrderCreateInput = {
   name?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Int']>;
+  netPrice?: Maybe<Scalars['Int']>;
+};
+
+export type OrderUpdateInput = {
+  name?: Maybe<Scalars['String']>;
+  netPrice?: Maybe<Scalars['Int']>;
+  isCancelled?: Maybe<Scalars['Boolean']>;
+  status?: Maybe<OrderStatus>;
+  id: Scalars['ID'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   orderCreate?: Maybe<Order>;
+  orderUpdate?: Maybe<Order>;
 };
 
 
 export type MutationOrderCreateArgs = {
   order?: Maybe<OrderCreateInput>;
+};
+
+
+export type MutationOrderUpdateArgs = {
+  order?: Maybe<OrderUpdateInput>;
 };
 
 export enum CacheControlScope {
@@ -71,7 +96,7 @@ export type GetOrdersQuery = (
   { __typename?: 'Query' }
   & { orderList?: Maybe<Array<Maybe<(
     { __typename?: 'Order' }
-    & Pick<Order, 'id' | 'name'>
+    & Pick<Order, 'id' | 'name' | 'netPrice' | 'totalPrice' | 'status' | 'isCancelled' | 'createdAt'>
   )>>> }
 );
 
@@ -114,6 +139,11 @@ export const GetOrdersDocument = gql`
   orderList {
     id
     name
+    netPrice
+    totalPrice
+    status
+    isCancelled
+    createdAt
   }
 }
     `;

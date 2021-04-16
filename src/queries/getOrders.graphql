@@ -2,5 +2,10 @@ query getOrders {
   orderList {
     id
     name
+    netPrice
+    totalPrice
+    status
+    isCancelled
+    createdAt
   }
 }

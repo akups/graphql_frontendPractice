@@ -1,16 +1,10 @@
 import AddOrderForm from "./AddOrderForm";
 import "./App.css";
 import { useGetOrdersQuery, useCreateOrderMutation } from "./generated/graphql";
+import OrderSummary from "./OrderSummary";
 
 function App() {
   const [createOrder, { data: dataCreateOrder }] = useCreateOrderMutation();
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const price = parseInt(e.target.price.value);
-
-    createOrder({ variables: { input: { name, price } } });
-  };
 
   const { data, error, loading } = useGetOrdersQuery();
 
@@ -18,20 +12,9 @@ function App() {
     <div className="App">
       <h1>Order App</h1>
       <AddOrderForm />
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input name="name" />
-          <input type="number" name="price" />
-          <button type="submit">submit</button>
-        </form>
-      </div>
+
       {data?.orderList?.map((order) => {
-        return (
-          <div>
-            <p>{order?.name}</p>
-            <p>{order?.id}</p>
-          </div>
-        );
+        return order && <OrderSummary order={order} />;
       })}
     </div>
   );

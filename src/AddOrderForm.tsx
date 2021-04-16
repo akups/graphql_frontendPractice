@@ -11,7 +11,7 @@ const AddOrderForm = () => {
     const formattedPrice = parseFloat(values.orderPrice);
     await createOrder({
       variables: {
-        input: { name: values.orderName, price: formattedPrice },
+        input: { name: values.orderName, netPrice: formattedPrice },
       },
     });
     setShowSuccess(true);
@@ -70,7 +70,7 @@ const AddOrderForm = () => {
                   <Field name="orderPrice">
                     {({ input, meta }) => (
                       <InputContainer>
-                        <label>Order Price:</label>
+                        <label>Order netPrice:</label>
                         <InputField
                           {...input}
                           type="number"
