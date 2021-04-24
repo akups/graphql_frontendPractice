@@ -1,17 +1,20 @@
 import { FormApi } from "final-form";
 import { useState } from "react";
-import { Form, Field } from "react-final-form";
-import { useCreateOrderMutation } from "./generated/graphql";
+import { Field, Form } from "react-final-form";
 import styled from "styled-components";
+import { useCreateInvoiceMutation } from "./generated/graphql";
 
-const AddOrderForm = () => {
+const AddInvoiceForm = () => {
   const [showSuccess, setShowSuccess] = useState(false);
-  const [createOrder, { data: dataCreateOrder }] = useCreateOrderMutation();
+  const [
+    createInvoice,
+    { data: dataCreateInvoice },
+  ] = useCreateInvoiceMutation();
   const onSubmit = async (values: any, form: FormApi) => {
-    const formattedPrice = parseFloat(values.orderPrice);
-    await createOrder({
+    const formattedPrice = parseFloat(values.invoicePrice);
+    await createInvoice({
       variables: {
-        input: { name: values.orderName, netPrice: formattedPrice },
+        input: { name: values.invoiceName, netPrice: formattedPrice },
       },
     });
     setShowSuccess(true);
@@ -30,14 +33,15 @@ const AddOrderForm = () => {
           //validate={validate}
           validate={(values) => {
             const errors: any = {};
-            if (!values.orderPrice) {
-              errors.orderPrice = "Price is required";
+            if (!values.invoicePrice) {
+              errors.invoicePrice = "Price is required";
             }
-            if (!values.orderName) {
-              errors.orderName = "Order name is required";
+            if (!values.invoiceName) {
+              errors.invoiceName = "invoice name is required";
             }
-            if (values.orderName && values.orderName.length < 5) {
-              errors.orderName = "Order name must be longer than 5 characters";
+            if (values.invoiceName && values.invoiceName.length < 5) {
+              errors.invoiceName =
+                "invoice name must be longer than 5 characters";
             }
             return errors;
           }}
@@ -46,15 +50,15 @@ const AddOrderForm = () => {
               <form onSubmit={handleSubmit}>
                 <h2>Simple Default Input</h2>
                 <div>
-                  <Field name="orderName">
+                  <Field name="invoiceName">
                     {({ input, meta }) => (
                       <InputContainer>
-                        <label>Order Name:</label>
+                        <label>Invoice Name:</label>
                         <InputField
                           {...input}
                           type="text"
-                          placeholder="first order"
-                          data-cy="orderNameInput"
+                          placeholder="first invoice"
+                          data-cy="invoiceNameInput"
                         />
                         {meta.error && meta.touched && (
                           <ErrorText data-cy="error-message-name">
@@ -67,15 +71,15 @@ const AddOrderForm = () => {
                 </div>
 
                 <div>
-                  <Field name="orderPrice">
+                  <Field name="invoicePrice">
                     {({ input, meta }) => (
                       <InputContainer>
-                        <label>Order netPrice:</label>
+                        <label>Invoice netPrice:</label>
                         <InputField
                           {...input}
                           type="number"
                           placeholder="300"
-                          data-cy="orderPriceInput"
+                          data-cy="invoicePriceInput"
                         />
                         {meta.error && meta.touched && (
                           <ErrorText data-cy="error-message-price">
@@ -127,4 +131,4 @@ const ErrorText = styled.span`
   color: red;
 `;
 
-export default AddOrderForm;
+export default AddInvoiceForm;

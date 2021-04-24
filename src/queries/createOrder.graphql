@@ -1,6 +1,0 @@
-mutation createOrder($input: OrderCreateInput) {
-  orderCreate(order: $input) {
-    id
-    name
-  }
-}

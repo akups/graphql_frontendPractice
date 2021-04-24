@@ -1,10 +1,10 @@
+import { css } from "@emotion/css";
 import React from "react";
-import { css, cx } from "@emotion/css";
-import { Order } from "./generated/graphql";
+import { Invoice } from "./generated/graphql";
 
 const color = "white";
 
-export default function OrderSummary({ order }: { order: Order }) {
+export default function InvoiceSummary({ invoice }: { invoice: Invoice }) {
   return (
     <div
       className={css`
@@ -21,12 +21,12 @@ export default function OrderSummary({ order }: { order: Order }) {
         }
       `}
     >
-      <p>Name: {order?.name}</p>
-      <p>Net Price:{order?.netPrice}</p>
-      <p>Total Price: {order?.totalPrice}</p>
-      <p>{order?.createdAt}</p>
-      <p>{order?.status}</p>
-      <p>{order?.isCancelled}</p>
+      <p>Name: {invoice?.name}</p>
+      <p>Net Price:{invoice?.netPrice}</p>
+      <p>Total Price: {invoice?.totalPrice}</p>
+      <p>{invoice?.createdAt}</p>
+      <p>{invoice?.status}</p>
+      <p>{invoice?.isCancelled}</p>
     </div>
   );
 }

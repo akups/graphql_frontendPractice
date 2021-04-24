@@ -1,16 +1,16 @@
 import React from "react";
-import OrderSummary from "../OrderSummary";
+import InvoiceSummary from "../InvoiceSummary";
 
-export const Order = () => {
+export const Invoice = () => {
   return (
-    <OrderSummary
-      order={{
+    <InvoiceSummary
+      invoice={{
         id: "test",
         netPrice: 54.4,
         totalPrice: 34,
         name: "test name",
       }}
-    ></OrderSummary>
+    ></InvoiceSummary>
   );
 };
 
@@ -26,6 +26,6 @@ Primary.args = {
 */
 
 export default {
-  title: "OrderSummary",
-  component: OrderSummary,
+  title: "InvoiceSummary",
+  component: InvoiceSummary,
 };

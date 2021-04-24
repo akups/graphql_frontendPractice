@@ -1,20 +1,26 @@
-import AddOrderForm from "./AddOrderForm";
+import AddInvoiceForm from "./AddInvoiceForm";
 import "./App.css";
-import { useGetOrdersQuery, useCreateOrderMutation } from "./generated/graphql";
-import OrderSummary from "./OrderSummary";
+import {
+  useGetInvoicesQuery,
+  useCreateInvoiceMutation,
+} from "./generated/graphql";
+import InvoiceSummary from "./InvoiceSummary";
 
 function App() {
-  const [createOrder, { data: dataCreateOrder }] = useCreateOrderMutation();
+  const [
+    createInvoice,
+    { data: dataCreateInvoice },
+  ] = useCreateInvoiceMutation();
 
-  const { data, error, loading } = useGetOrdersQuery();
+  const { data, error, loading } = useGetInvoicesQuery();
 
   return (
     <div className="App">
-      <h1>Order App</h1>
-      <AddOrderForm />
+      <h1>Invoice App</h1>
+      <AddInvoiceForm />
 
-      {data?.orderList?.map((order) => {
-        return order && <OrderSummary order={order} />;
+      {data?.invoiceList?.map((invoice) => {
+        return invoice && <InvoiceSummary invoice={invoice} />;
       })}
     </div>
   );
