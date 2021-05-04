@@ -9,7 +9,7 @@ export default function InvoiceSummary({ invoice }: { invoice: Invoice }) {
     <div
       className={css`
         background-color: hotpink;
-        flex-direction: column;
+        flex-direction: row;
         border-radius: 4px;
         width: calc(100% - 10px);
         display: flex;
@@ -25,7 +25,7 @@ export default function InvoiceSummary({ invoice }: { invoice: Invoice }) {
       <p>Net Price:{invoice?.netPrice}</p>
       <p>Total Price: {invoice?.totalPrice}</p>
       <p>{invoice?.createdAt}</p>
-      <p>{invoice?.status}</p>
+      <p>{invoice?.invoiceStatus}</p>
       <p>{invoice?.isCancelled}</p>
     </div>
   );

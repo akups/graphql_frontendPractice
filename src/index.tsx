@@ -7,8 +7,13 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
+let uri = "http://localhost:4000/graphql";
+
 const client = new ApolloClient({
-  uri: "https://thawing-sands-35319.herokuapp.com/graphql",
+  uri:
+    process.env.NODE_ENV === "development"
+      ? uri
+      : "https://thawing-sands-35319.herokuapp.com/graphql",
   cache: new InMemoryCache(),
 });
 

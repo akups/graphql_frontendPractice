@@ -13,6 +13,8 @@ function App() {
   ] = useCreateInvoiceMutation();
 
   const { data, error, loading } = useGetInvoicesQuery();
+  console.log(error);
+  console.log(data);
 
   return (
     <div className="App">

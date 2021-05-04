@@ -2,5 +2,10 @@ mutation createInvoice($input: InvoiceCreateInput) {
   invoiceCreate(invoice: $input) {
     id
     name
+    netPrice
+    totalPrice
+    invoiceStatus
+    isCancelled
+    createdAt
   }
 }
