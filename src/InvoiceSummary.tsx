@@ -24,8 +24,8 @@ export default function InvoiceSummary({ invoice }: { invoice: Invoice }) {
       <p>Name: {invoice?.name}</p>
       <p>Net Price:{invoice?.netPrice}</p>
       <p>Total Price: {invoice?.totalPrice}</p>
-      <p>{invoice?.createdAt}</p>
-      <p>{invoice?.invoiceStatus}</p>
+      <p>Date Created{invoice?.createdAt}</p>
+      <p>Status{invoice?.invoiceStatus}</p>
       <p>{invoice?.isCancelled}</p>
     </div>
   );

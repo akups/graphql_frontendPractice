@@ -1,11 +1,10 @@
-query getInvoices {
-  invoiceList {
+query getInvoices ($filter: InvoiceListFilter){
+  invoiceList(filter:$filter){
     id
     name
-    netPrice
-    totalPrice
     invoiceStatus
-    isCancelled
     createdAt
+    netPrice
   }
+  
 }

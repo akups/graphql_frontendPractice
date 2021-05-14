@@ -3,6 +3,7 @@ import "./App.css";
 import {
   useGetInvoicesQuery,
   useCreateInvoiceMutation,
+  InvoiceStatus,
 } from "./generated/graphql";
 import InvoiceSummary from "./InvoiceSummary";
 
@@ -12,7 +13,9 @@ function App() {
     { data: dataCreateInvoice },
   ] = useCreateInvoiceMutation();
 
-  const { data, error, loading } = useGetInvoicesQuery();
+  const { data, error, loading } = useGetInvoicesQuery({
+    variables: { filter: { invoiceStatus: InvoiceStatus.ApprovalRequested } },
+  });
   console.log(error);
   console.log(data);
 

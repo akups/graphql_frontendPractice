@@ -16,6 +16,11 @@ export type Scalars = {
 };
 
 
+export type InvoiceListFilter = {
+  name?: Maybe<Scalars['String']>;
+  invoiceStatus?: Maybe<InvoiceStatus>;
+};
+
 export type Query = {
   __typename?: 'Query';
   /** A simple type for getting started! */
@@ -23,10 +28,16 @@ export type Query = {
   invoiceList?: Maybe<Array<Maybe<Invoice>>>;
 };
 
+
+export type QueryInvoiceListArgs = {
+  filter?: Maybe<InvoiceListFilter>;
+};
+
 export enum InvoiceStatus {
   Approved = 'APPROVED',
   Paid = 'PAID',
-  ApprovalRequested = 'APPROVAL_REQUESTED'
+  ApprovalRequested = 'APPROVAL_REQUESTED',
+  Processing = 'PROCESSING'
 }
 
 export type Invoice = {
@@ -89,14 +100,16 @@ export type CreateInvoiceMutation = (
   )> }
 );
 
-export type GetInvoicesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetInvoicesQueryVariables = Exact<{
+  filter?: Maybe<InvoiceListFilter>;
+}>;
 
 
 export type GetInvoicesQuery = (
   { __typename?: 'Query' }
   & { invoiceList?: Maybe<Array<Maybe<(
     { __typename?: 'Invoice' }
-    & Pick<Invoice, 'id' | 'name' | 'netPrice' | 'totalPrice' | 'invoiceStatus' | 'isCancelled' | 'createdAt'>
+    & Pick<Invoice, 'id' | 'name' | 'invoiceStatus' | 'createdAt' | 'netPrice'>
   )>>> }
 );
 
@@ -140,15 +153,13 @@ export type CreateInvoiceMutationHookResult = ReturnType<typeof useCreateInvoice
 export type CreateInvoiceMutationResult = Apollo.MutationResult<CreateInvoiceMutation>;
 export type CreateInvoiceMutationOptions = Apollo.BaseMutationOptions<CreateInvoiceMutation, CreateInvoiceMutationVariables>;
 export const GetInvoicesDocument = gql`
-    query getInvoices {
-  invoiceList {
+    query getInvoices($filter: InvoiceListFilter) {
+  invoiceList(filter: $filter) {
     id
     name
-    netPrice
-    totalPrice
     invoiceStatus
-    isCancelled
     createdAt
+    netPrice
   }
 }
     `;
@@ -165,6 +176,7 @@ export const GetInvoicesDocument = gql`
  * @example
  * const { data, loading, error } = useGetInvoicesQuery({
  *   variables: {
+ *      filter: // value for 'filter'
  *   },
  * });
  */
