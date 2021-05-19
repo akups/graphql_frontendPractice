@@ -65,10 +65,19 @@ export type InvoiceUpdateInput = {
   id: Scalars['ID'];
 };
 
+export type UploadedFileResponse = {
+  __typename?: 'UploadedFileResponse';
+  filename: Scalars['String'];
+  mimetype: Scalars['String'];
+  encoding: Scalars['String'];
+  url: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   invoiceCreate?: Maybe<Invoice>;
   invoiceUpdate?: Maybe<Invoice>;
+  singleUpload: UploadedFileResponse;
 };
 
 
@@ -79,6 +88,11 @@ export type MutationInvoiceCreateArgs = {
 
 export type MutationInvoiceUpdateArgs = {
   invoice?: Maybe<InvoiceUpdateInput>;
+};
+
+
+export type MutationSingleUploadArgs = {
+  file: Scalars['Upload'];
 };
 
 export enum CacheControlScope {
