@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 import React from "react";
-import { Invoice } from "./generated/graphql";
+import { Invoice } from "../generated/graphql";
 
 const color = "white";
 

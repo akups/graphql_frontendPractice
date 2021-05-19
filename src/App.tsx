@@ -1,33 +1,42 @@
-import AddInvoiceForm from "./AddInvoiceForm";
+import React from "react";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
-import {
-  useGetInvoicesQuery,
-  useCreateInvoiceMutation,
-  InvoiceStatus,
-} from "./generated/graphql";
-import InvoiceSummary from "./InvoiceSummary";
+import AddInvoiceForm from "./components/AddInvoiceForm";
+import { InvoiceListPage } from "./components/InvoiceListPage";
 
 function App() {
-  const [
-    createInvoice,
-    { data: dataCreateInvoice },
-  ] = useCreateInvoiceMutation();
-
-  const { data, error, loading } = useGetInvoicesQuery({
-    variables: { filter: { invoiceStatus: InvoiceStatus.ApprovalRequested } },
-  });
-  console.log(error);
-  console.log(data);
-
   return (
-    <div className="App">
-      <h1>Invoice App</h1>
-      <AddInvoiceForm />
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/invoices">Invoices</Link>
+            </li>
+          </ul>
+        </nav>
 
-      {data?.invoiceList?.map((invoice) => {
-        return invoice && <InvoiceSummary invoice={invoice} />;
-      })}
-    </div>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/about">
+            <p>Akua's Invoice App</p>
+          </Route>
+          <Route path="/invoices">
+            <InvoiceListPage />
+          </Route>
+          <Route path="/">
+            <AddInvoiceForm />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

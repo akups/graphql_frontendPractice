@@ -2,7 +2,7 @@ import { FormApi } from "final-form";
 import { useState } from "react";
 import { Field, Form } from "react-final-form";
 import styled from "styled-components";
-import { useCreateInvoiceMutation } from "./generated/graphql";
+import { useCreateInvoiceMutation } from "../generated/graphql";
 
 const AddInvoiceForm = () => {
   const [showSuccess, setShowSuccess] = useState(false);

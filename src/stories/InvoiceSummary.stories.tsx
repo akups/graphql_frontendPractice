@@ -1,5 +1,5 @@
 import React from "react";
-import InvoiceSummary from "../InvoiceSummary";
+import InvoiceSummary from "../components/InvoiceSummary";
 
 export const Invoice = () => {
   return (
