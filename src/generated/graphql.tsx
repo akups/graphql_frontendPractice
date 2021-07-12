@@ -42,7 +42,7 @@ export enum InvoiceStatus {
 
 export type Invoice = {
   __typename?: 'Invoice';
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
   netPrice?: Maybe<Scalars['Float']>;
   vatRate?: Maybe<Scalars['Float']>;
   totalPrice?: Maybe<Scalars['Float']>;
@@ -93,6 +93,7 @@ export type MutationInvoiceUpdateArgs = {
 
 export type MutationSingleUploadArgs = {
   file: Scalars['Upload'];
+  invoiceId?: Maybe<Scalars['ID']>;
 };
 
 export enum CacheControlScope {
@@ -125,6 +126,20 @@ export type GetInvoicesQuery = (
     { __typename?: 'Invoice' }
     & Pick<Invoice, 'id' | 'name' | 'invoiceStatus' | 'createdAt' | 'netPrice'>
   )>>> }
+);
+
+export type SingleUploadMutationVariables = Exact<{
+  file: Scalars['Upload'];
+  invoiceId: Scalars['ID'];
+}>;
+
+
+export type SingleUploadMutation = (
+  { __typename?: 'Mutation' }
+  & { singleUpload: (
+    { __typename?: 'UploadedFileResponse' }
+    & Pick<UploadedFileResponse, 'filename' | 'mimetype' | 'encoding' | 'url'>
+  ) }
 );
 
 
@@ -203,3 +218,39 @@ export function useGetInvoicesLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetInvoicesQueryHookResult = ReturnType<typeof useGetInvoicesQuery>;
 export type GetInvoicesLazyQueryHookResult = ReturnType<typeof useGetInvoicesLazyQuery>;
 export type GetInvoicesQueryResult = Apollo.QueryResult<GetInvoicesQuery, GetInvoicesQueryVariables>;
+export const SingleUploadDocument = gql`
+    mutation singleUpload($file: Upload!, $invoiceId: ID!) {
+  singleUpload(file: $file, invoiceId: $invoiceId) {
+    filename
+    mimetype
+    encoding
+    url
+  }
+}
+    `;
+export type SingleUploadMutationFn = Apollo.MutationFunction<SingleUploadMutation, SingleUploadMutationVariables>;
+
+/**
+ * __useSingleUploadMutation__
+ *
+ * To run a mutation, you first call `useSingleUploadMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSingleUploadMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [singleUploadMutation, { data, loading, error }] = useSingleUploadMutation({
+ *   variables: {
+ *      file: // value for 'file'
+ *      invoiceId: // value for 'invoiceId'
+ *   },
+ * });
+ */
+export function useSingleUploadMutation(baseOptions?: Apollo.MutationHookOptions<SingleUploadMutation, SingleUploadMutationVariables>) {
+        return Apollo.useMutation<SingleUploadMutation, SingleUploadMutationVariables>(SingleUploadDocument, baseOptions);
+      }
+export type SingleUploadMutationHookResult = ReturnType<typeof useSingleUploadMutation>;
+export type SingleUploadMutationResult = Apollo.MutationResult<SingleUploadMutation>;
+export type SingleUploadMutationOptions = Apollo.BaseMutationOptions<SingleUploadMutation, SingleUploadMutationVariables>;

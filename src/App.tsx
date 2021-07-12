@@ -3,12 +3,13 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import "./App.css";
 import AddInvoiceForm from "./components/AddInvoiceForm";
 import { InvoiceListPage } from "./components/InvoiceListPage";
+import styled from "styled-components";
 
 function App() {
   return (
     <Router>
       <div>
-        <nav>
+        <NavToolbar>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -20,7 +21,7 @@ function App() {
               <Link to="/invoices">Invoices</Link>
             </li>
           </ul>
-        </nav>
+        </NavToolbar>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -41,3 +42,11 @@ function App() {
 }
 
 export default App;
+
+const NavToolbar = styled.nav`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  size: 10rem;
+  text-decoration: none;
+`;

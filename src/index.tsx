@@ -6,14 +6,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 
 let uri = "http://localhost:4000/graphql";
 
 const client = new ApolloClient({
-  uri:
-    process.env.NODE_ENV === "development"
-      ? uri
-      : "https://thawing-sands-35319.herokuapp.com/graphql",
+  link: createUploadLink({
+    uri:
+      process.env.NODE_ENV === "development"
+        ? uri
+        : "https://thawing-sands-35319.herokuapp.com/graphql",
+  }),
+
   cache: new InMemoryCache(),
 });
 

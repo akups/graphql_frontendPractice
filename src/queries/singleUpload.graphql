@@ -1,0 +1,8 @@
+mutation singleUpload($file: Upload!, $invoiceId: ID!) {
+    singleUpload(file: $file, invoiceId:$invoiceId) {
+      filename
+      mimetype
+      encoding
+      url
+    }
+  }
